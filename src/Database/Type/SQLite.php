@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Cadre\Framework\Database\Type;
 
+use PDO;
+
 class SQLite implements TypeInterface
 {
     public function __invoke(

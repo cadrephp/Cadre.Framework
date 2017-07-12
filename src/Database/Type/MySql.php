@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Cadre\Framework\Database\Type;
 
+use PDO;
+
 class MySql implements TypeInterface
 {
     public function __invoke(
@@ -22,10 +24,8 @@ class MySql implements TypeInterface
         string $password,
         string $port = '3306'
     ) {
-        $host = 0 === strcmp($host, 'localhost') ? '127.0.0.1' : $host;
         $port = empty($port) ? '3306' : $port;
-        return new PDO(
-            "sqlite:{$database}"
-        );
+        $dsn = "mysql:host={$host};port={$port};dbname={$database}";
+        return new PDO($dsn, $username, $password);
     }
 }

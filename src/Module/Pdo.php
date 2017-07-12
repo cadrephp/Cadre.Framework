@@ -33,10 +33,10 @@ class Pdo extends Module
         /** PdoFactory */
 
         $di->params[PdoFactory::class] = [
-            'types' => [
-                'mysql' => MySql::class,
-                'sqlite' => SQLite::class,
-            ],
+            'types' => $di->lazyArray([
+                'mysql' => $di->lazyNew(MySql::class),
+                'sqlite' => $di->lazyNew(SQLite::class),
+            ]),
         ];
     }
 }

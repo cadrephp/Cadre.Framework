@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Cadre\Framework\Database;
 
 use Exception;
+use PDO;
 
 class PdoFactory
 {
