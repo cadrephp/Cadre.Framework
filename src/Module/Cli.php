@@ -5,10 +5,16 @@ namespace Cadre\Framework\Module;
 
 use Aura\Cli\CliFactory;
 use Aura\Di\Container;
+use Cadre\CliAdr\Config as CliAdrModule;
 use Cadre\Module\Module;
 
 class Cli extends Module
 {
+    public function require()
+    {
+        return [CliAdrModule::class];
+    }
+
     public function define(Container $di)
     {
         /** Services */

@@ -7,7 +7,7 @@ use Aura\Di\ContainerBuilder;
 use Cadre\Framework\Traits\Cacheable;
 use Cadre\Module\ModuleLoader;
 
-class WebKernel
+class CliKernel
 {
     use Cacheable;
 
@@ -24,17 +24,17 @@ class WebKernel
 
         $di = $this->getContainer($modules, $autoResolve);
 
-        return $di->get('radar/adr:adr');
+        return $di->get('cadre:cliadr/adr');
     }
 
     private function getContainer(array $modules, $autoResolve = false)
     {
-        $cache = $this->getCache()->get('cadre-framework.web-di', null);
+        $cache = $this->getCache()->get('cadre-framework.cli-di', null);
 
         if (is_null($cache)) {
             $builder = new ContainerBuilder();
             $di = $builder->newInstance($autoResolve);
-            $loader = new ModuleLoader($modules, $this->project->getEnv(), 'web');
+            $loader = new ModuleLoader($modules, $this->project->getEnv(), 'cli');
 
             $di->set('cadre:framework/project', $this->project);
             $loader->define($di);
@@ -44,7 +44,7 @@ class WebKernel
             $di = unserialize($cache);
         }
 
-        $this->getCache()->set('cadre-framework.web-di', serialize($di));
+        $this->getCache()->set('cadre-framework.cli-di', serialize($di));
 
         return $di;
     }
